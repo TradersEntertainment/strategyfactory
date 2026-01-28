@@ -4,6 +4,7 @@ import dashscope
 from dashscope import Generation
 from models import ChatRequest, ChatResponse, Strategy, Indicator, Rule, RiskSettings
 from dotenv import load_dotenv
+from fastapi import APIRouter
 
 # Load environment variables
 load_dotenv()
