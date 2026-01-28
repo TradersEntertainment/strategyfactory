@@ -63,7 +63,7 @@ export default function Home() {
     // API CONFIGURATION - Synchronous to avoid race conditions
     const getApiBaseUrl = () => {
         if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-            return "https://proactive-insight-production.up.railway.app";
+            return "https://proactive-insight-production-fceb.up.railway.app";
         }
         return "http://localhost:8000";
     };
