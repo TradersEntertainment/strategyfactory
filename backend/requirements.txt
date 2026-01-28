@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+python-dotenv
+pandas
+requests
+web3
+eth-account
+dashscope
