@@ -59,6 +59,10 @@ const generateMockEquity = () => {
 export default function Home() {
     // --- State ---
     const [strategies, setStrategies] = useState<(Strategy & { logicType: string })[]>(FEATURED_STRATEGIES)
+
+    // API CONFIGURATION
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
     const [isMounted, setIsMounted] = useState(false) // Hydration Fix
 
     // --- Refs for Robust Interaction ---
@@ -105,7 +109,7 @@ export default function Home() {
     useEffect(() => {
         if (factoryMode && !marketHistory) {
             // Fetch baseline data using a dummy strategy just to get benchmark candles
-            fetch("http://localhost:8000/api/backtest/compare", {
+            fetch(`${API_BASE_URL}/api/backtest/compare`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ market: "BTC", timeframe: "1h", logic: { type: "HOLD" } })
