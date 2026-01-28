@@ -61,7 +61,9 @@ export default function Home() {
     const [strategies, setStrategies] = useState<(Strategy & { logicType: string })[]>(FEATURED_STRATEGIES)
 
     // API CONFIGURATION
+    // API CONFIGURATION
     const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+    console.log("🚀 Debug: Effective API_BASE_URL =", API_BASE_URL);
 
     const [isMounted, setIsMounted] = useState(false) // Hydration Fix
 
