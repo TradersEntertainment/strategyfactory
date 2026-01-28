@@ -60,20 +60,15 @@ export default function Home() {
     // --- State ---
     const [strategies, setStrategies] = useState<(Strategy & { logicType: string })[]>(FEATURED_STRATEGIES)
 
-    // API CONFIGURATION
-    const [apiBaseUrl, setApiBaseUrl] = useState("http://localhost:8000");
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            if (window.location.hostname === 'localhost') {
-                setApiBaseUrl("http://localhost:8000");
-            } else {
-                setApiBaseUrl("https://proactive-insight-production.up.railway.app"); // HARDCODED BACKEND URL
-            }
+    // API CONFIGURATION - Synchronous to avoid race conditions
+    const getApiBaseUrl = () => {
+        if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+            return "https://proactive-insight-production.up.railway.app";
         }
-    }, []);
+        return "http://localhost:8000";
+    };
 
-    console.log("🚀 Debug: Effective API_BASE_URL =", apiBaseUrl);
+    console.log("🚀 Debug: API_BASE_URL function would return:", getApiBaseUrl());
 
     const [isMounted, setIsMounted] = useState(false) // Hydration Fix
 
@@ -121,7 +116,7 @@ export default function Home() {
     useEffect(() => {
         if (factoryMode && !marketHistory) {
             // Fetch baseline data using a dummy strategy just to get benchmark candles
-            fetch(`${apiBaseUrl}/api/backtest/compare`, {
+            fetch(`${getApiBaseUrl()}/api/backtest/compare`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ market: "BTC", timeframe: "1h", logic: { type: "HOLD" } })
