@@ -159,7 +159,7 @@ export default function Home() {
         setScanResults(null)
 
         try {
-            const res = await fetch("http://localhost:8000/api/backtest/scan", {
+            const res = await fetch(`${getApiBaseUrl()}/api/backtest/scan`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -182,7 +182,7 @@ export default function Home() {
         setIsOptimizing(true)
         setOptimizationResults(null)
         try {
-            const res = await fetch("http://localhost:8000/api/backtest/optimize", {
+            const res = await fetch(`${getApiBaseUrl()}/api/backtest/optimize`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -205,7 +205,7 @@ export default function Home() {
         setTrainingResults(null)
         try {
             // 1. Train ON the Oracle behavior
-            const res = await fetch("http://localhost:8000/api/backtest/train", {
+            const res = await fetch(`${getApiBaseUrl()}/api/backtest/train`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -273,7 +273,7 @@ export default function Home() {
         setLoading(true)
 
         try {
-            const res = await fetch("http://localhost:8000/api/chat/message", {
+            const res = await fetch(`${getApiBaseUrl()}/api/chat/message`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ message: userMsg, wallet_address: "0x123..." })
@@ -313,7 +313,7 @@ export default function Home() {
         setBacktestData(null)
 
         try {
-            const res = await fetch("http://localhost:8000/api/backtest/compare", {
+            const res = await fetch(`${getApiBaseUrl()}/api/backtest/compare`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -544,7 +544,7 @@ export default function Home() {
                                         onClick={async () => {
                                             if (markedTrades.length < 2) return alert("Mark at least 2 trades")
                                             try {
-                                                const res = await fetch("http://localhost:8000/api/backtest/infer", {
+                                                const res = await fetch(`${getApiBaseUrl()}/api/backtest/infer`, {
                                                     method: "POST", headers: { "Content-Type": "application/json" },
                                                     body: JSON.stringify({ market: "BTC", timeframe: "1h", logic: { marked_trades: markedTrades } })
                                                 })
